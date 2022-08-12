@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="template.html :: header('Add product')">
+</head>
+
+<body>
+<header th:insert="template.html :: topmenu"> </header>
+
+<div class="container">
+
+    <nav aria-label="breadcrumb" style="margin-bottom: 40px;">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item" style="font-weight: 400; "><a th:href="@{/}">Home</a></li>
+            <li class="breadcrumb-item" style="font-weight: 400; "><a th:href="@{/product/page/1}">Products</a></li>
+            <li class="breadcrumb-item active" aria-current="page" style="font-weight: 600; color: #000">Add</li>
+        </ol>
+    </nav>
+    <div class="row">
+        <div class="col-lg-8 mt-5">
+            <form action="#" th:action="@{/product/add}" method="post" name="product" enctype="multipart/form-data"
+                  th:object="${product}">
+                <div class="form-group row">
+                    <label for="name" class="col-sm-2 col-form-label">Name</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="name" autocomplete="off" th:field="*{name}" />
+                    </div>
+                    <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+                </div>
+                <div class="form-group row mt-3">
+                    <label for="description" class="col-sm-2 col-form-label">Description</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="description" autocomplete="off" th:field="*{description}" />
+                    </div>
+                    <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Web site Error</div>
+                </div>
+
+                <div class="form-group row mt-3">
+                    <label for="quantity" class="col-sm-2 col-form-label">Quantity</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="quantity" autocomplete="off" th:field="*{quantity}" />
+                    </div>
+                    <div class="text-danger" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}">Email Error</div>
+                </div>
+
+                <div class="form-group row mt-3">
+                    <label for="price" class="col-sm-2 col-form-label">Price</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="price" autocomplete="off" th:field="*{price}" />
+                    </div>
+                    <div class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Email Error</div>
+                </div>
+
+                <div class="form-group row mt-3">
+                    <label for="category" class="col-sm-2 col-form-label">Category</label>
+                    <div class="col-sm-4">
+              <span th:each="state :${T(vn.com.techmaster.wineshopping_project.model.Category).values()}">
+                <input type="checkbox" name="category" th:value="${state}" th:field="*{category}" >
+                <label th:text="${state}" for="name"></label><br>
+              </span>
+                    </div>
+                    <div class="text-danger" th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Category Error</div>
+                </div>
+                <div class="form-group row mt-3">
+                    <label for="logo" class="col-sm-2 col-form-label">Select a Logo</label>
+                    <div class="col-sm-4">
+                        <input type="file" class="form-control" id="logo" th:field="*{logo}" />
+                    </div>
+                    <div class="text-danger" th:if="${#fields.hasErrors('logo')}" th:errors="*{logo}">Upload Error</div>
+                </div>
+                <div class="form-group row mt-3">
+                    <label for="logo" class="col-sm-2 col-form-label">Select a Logo 2</label>
+                    <div class="col-sm-4">
+                        <input type="file" class="form-control" id="logo" th:field="*{logo2}" />
+                    </div>
+                    <div class="text-danger" th:if="${#fields.hasErrors('logo2')}" th:errors="*{logo2}">Upload Error</div>
+                </div>
+                <div class="form-group row mt-3">
+                    <label for="logo" class="col-sm-2 col-form-label">Select a Logo 3</label>
+                    <div class="col-sm-4">
+                        <input type="file" class="form-control" id="logo" th:field="*{logo3}" />
+                    </div>
+                    <div class="text-danger" th:if="${#fields.hasErrors('logo3')}" th:errors="*{logo3}">Upload Error</div>
+                </div>
+                <button class="btn btn-primary mt-3" type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

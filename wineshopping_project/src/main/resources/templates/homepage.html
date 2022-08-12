@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head th:replace="template.html :: header('products')">
+</head>
+<body>
+<header th:insert="template.html :: topmenu"></header>
+<div class="container">
+
+
+    <nav aria-label="breadcrumb" style="margin-bottom: 40px;">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item" style="font-weight: 400; "><a th:href="@{/}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page" style="font-weight: 600; color: #000">Products</li>
+        </ol>
+    </nav>
+
+
+    <div class="alert alert-primary " id="message1" role="alert" th:text="${success}" th:if="${success}"></div>
+
+    <div class="alert alert-primary " id="message2" role="alert" th:text="${orderComplete}"
+         th:if="${orderComplete}"></div>
+
+    <div class="alert alert-primary " id="message3" role="alert" th:text="${contactsuccess}"
+         th:if="${contactsuccess}"></div>
+
+    <div class="alert alert-primary " id="message4" role="alert" th:text="${registersuccess}"
+         th:if="${registersuccess}"></div>
+
+    <div class="alert alert-primary " id="message5" role="alert" th:text="${changePassSuccess}"
+         th:if="${changePassSuccess}"></div>
+
+    <div class="alert alert-primary " id="message6" role="alert" th:text="${orderByCard}"
+         th:if="${orderByCard}"></div>
+
+    <div class="alert alert-primary " id="message7" role="alert" th:text="${sendnewpass}"
+         th:if="${sendnewpass}"></div>
+
+
+    <div class="row">
+        <div class="col-lg-8 mt-5">
+            <form th:action="@{/product/search}" method="get" th:object="${searchRequest}">
+                <div class="form-group row mt-3">
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="name" autocomplete="off"
+                               placeholder="Key product name" name="name" th:value="*{name}"/>
+                    </div>
+                    <div class="col-sm-4">
+                        <select name="category" th:field="*{category}">
+                            <option value="">-Chọn loại rượu -</option>
+                            <option th:each="state : ${T(vn.com.techmaster.wineshopping_project.model.Category).values()}"
+                                    th:value="${state}"
+                                    th:text="${state.label}">
+                            </option>
+                        </select>
+                    </div>
+                    <div style="margin-left: -100px" class="col-sm-2">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row my-3" th:each="product:${products}">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="row card-body">
+                        <img style="width: 100%; height: 350px; object-fit:cover"
+                             class="product-image img-fluid col-sm-4" th:src="@{'/photos/'+ ${product.image}}"
+                             alt="product image"/>
+                        <div class="col-sm-6">
+                            <h3 class="card-title" th:text="${product.name}">Sony WXH-1000</h3>
+                            <p class="card-text" th:text="${'Description: ' + product.description}">Sony</p>
+                            <p class="card-text" th:text="${#numbers.formatInteger(product.price,3,'POINT')} + ' VND'">
+                                10000000</p>
+                            <p class="card-text" th:text="${'Quantity: ' + product.quantity }">Sony</p>
+                            <p class="card-text" th:text="${product.category}">Sony</p>
+
+                            <th:block th:if="${user != null && user.getRole().toString().equals('Customer')}">
+                            <a class="btn btn-primary" th:href="|/product/productdetail/${product.getId()}|">Detail</a>
+                            </th:block>
+
+                            <th:block th:if="${user != null && user.getRole().toString().equals('Customer')}">
+                                <a class="btn btn-primary" th:href="|/product/buy/${product.getId()}|">Add to Cart</a>
+                            </th:block>
+
+                            <th:block th:if="${user != null && user.getRole().toString().equals('Admin')}">
+                                <a th:href="|/product/delete/${product.getId()}|" class="btn btn-danger float-end">Delete
+                                    Product</a>
+                            </th:block>
+
+                            <th:block th:if="${user != null && user.getRole().toString().equals('Admin')}">
+                                <a th:href="|/product/edit/${product.getId()}|" class="btn btn-danger float-end">Edit
+                                    Product</a>
+                            </th:block>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; font-size: 25px">
+            <a style="color: black" th:if="${currentPage>1}" th:href="@{'/product/page/1'}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-arrow-bar-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                          d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5zM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5z"/>
+                </svg>
+            </a>
+            <span style="color: black" th:unless="${currentPage>1}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-left" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5zM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5z"/>
+</svg></span>
+
+            <a style="color: black" th:if="${currentPage > 1}" th:href="@{'/product/page/' + ${currentPage - 1}}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+                    <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+                </svg>
+            </a>
+            <span th:unless="${currentPage > 1}"></span>
+            <span th:each="i:${#numbers.sequence(1,totalPages)}">
+            <a style="color: black" th:if="${i != currentPage}" th:text="${i}"
+               th:href="@{'/product/page/' + ${i} }"></a>
+            <span style="color: black" th:unless="${i != currentPage}" th:text="${i}"></span>
+            &nbsp;&nbsp;
+             </span>
+
+            <a style="color: black" th:if="${currentPage < totalPages}"
+               th:href="@{'/product/page/' + ${currentPage + 1} }">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                    <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                </svg>
+            </a>
+            <span th:unless="${currentPage < totalPages}"></span>
+            <a style="color: black" th:if="${currentPage < totalPages}"
+               th:href="@{'/product/page/' + ${totalPages} }"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8zm-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5z"/>
+            </svg></a>
+            <span th:unless="${currentPage < totalPages}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                               fill="currentColor" class="bi bi-arrow-bar-right"
+                                                               viewBox="0 0 16 16">
+  <path fill-rule="evenodd"
+        d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8zm-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5z"/>
+</svg></span>
+
+        </div>
+
+    </div>
+
+
+</div>
+<script th:inline="javascript">
+    let messege1 = document.getElementById("message1")
+    setTimeout(function () {
+        messege1.parentElement.removeChild(messege1)
+    }, 1500)
+
+    let messege2 = document.getElementById("message2")
+    setTimeout(function () {
+        messege2.parentElement.removeChild(messege2)
+    }, 1500)
+
+    let messege3 = document.getElementById("message3")
+    setTimeout(function () {
+        messege3.parentElement.removeChild(messege3)
+    }, 1500)
+
+    let messege4 = document.getElementById("message4")
+    setTimeout(function () {
+        messege4.parentElement.removeChild(messege4)
+    }, 1500)
+
+    let messege5 = document.getElementById("message5")
+    setTimeout(function () {
+        messege5.parentElement.removeChild(messege5)
+    }, 1500)
+
+    let messege6 = document.getElementById("message6")
+    setTimeout(function () {
+        messege6.parentElement.removeChild(messege6)
+    }, 1500)
+
+    let messege7 = document.getElementById("message7")
+    setTimeout(function () {
+        messege7.parentElement.removeChild(messege7)
+    }, 1500)
+
+</script>
+
+
+</body>
+</html>
+

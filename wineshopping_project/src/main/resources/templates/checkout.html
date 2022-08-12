@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="template.html :: header('Cart')">
+
+<body>
+<header th:insert="template.html :: topmenu"></header>
+
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col"></th>
+            <th scope="col">Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Sub Total</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cartLine, iStat:${cart.cartLines}">
+            <th scope="row" th:text="${iStat.index} +1"></th>
+            <td><img class="img-fluid" style="width: 100px; height: 130px; object-fit: cover"
+                     th:src="@{'/photos/'+ ${cartLine.product.image}}" alt="product image"/>
+            </td>
+            <td th:text="${cartLine.product.name}">Sony WXMH 1000</td>
+            <td th:text="${cartLine.product.category}">Sony</td>
+            <td th:text="${#numbers.formatInteger(cartLine.product.price, 3, 'POINT')}  + ' VND'">4000000</td>
+            <td th:text="${cartLine.count}">1</td>
+            <td th:text="${#numbers.formatInteger(cartLine.product.price * cartLine.count, 3, 'POINT')}  + ' VND'">
+                4000000
+            </td>
+            <td><a th:href="|deleteProduct/${cartLine.getProduct().getId()}|" class="btn btn-danger float-end">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-x-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </a></td>
+        </tr>
+        <tr>
+            <td colspan="3"></td>
+            <td colspan="3">Raw Total</td>
+            <td th:text="${#numbers.formatInteger(cart.rawTotal, 3, 'POINT')} + ' VND'">4000000</td>
+        </tr>
+        <tr>
+            <td colspan="3"></td>
+            <td colspan="3">Discount</td>
+            <td th:text="${#numbers.formatInteger(-cart.discount, 3, 'POINT') + ' VND'}">4000000</td>
+        </tr>
+        <tr>
+            <td colspan="3"></td>
+            <td colspan="3">VAT</td>
+            <td th:text="${#numbers.formatInteger(cart.vatTax, 3, 'POINT')}  + ' VND'">4000000</td>
+        </tr>
+        <tr>
+            <td colspan="3"></td>
+            <td colspan="3">Final Total</td>
+            <td th:text="${#numbers.formatInteger(cart.total, 3, 'POINT')} + ' VND'">4000000</td>
+        </tr>
+
+        </tbody>
+    </table>
+    <button><a href="/product/order">Next Step</a></button>
+</div>
+</div>
+</body>
+
+</html>

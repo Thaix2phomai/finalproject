@@ -1,0 +1,206 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Product Detail</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel='stylesheet' href='https://sachinchoolur.github.io/lightslider/dist/css/lightslider.css'>
+    <link rel="stylesheet" th:href="@{/assets/css/productdetail.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+<div th:fragment="topmenu">
+    <ul class="nav navbar navbar-expand-lg navbar-dark bg-dark static-top justify-content-between">
+        <div class="nav ">
+            <li class="nav-item">
+                <a class="nav-link navbar-brand" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a th:href="|/product/page/1|" class="nav-link navbar-brand" href="/employer">Product</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link navbar-brand" aria-current="page" href="/">About us</a>
+            </li>
+
+            <li class="nav-item ">
+                <th:block th:if="${user != null && user.getRole().toString().equals('Customer')}">
+                    <a th:href="|/user/customer/change_password|" class="nav-link navbar-brand" aria-current="page">Change
+                        Password</a>
+                </th:block>
+            </li>
+
+            <li class="nav-item ">
+                <th:block th:if="${user != null && user.getRole().toString().equals('Admin')}">
+                    <a th:href="|/product/add|" class="nav-link navbar-brand" aria-current="page">Add Product</a>
+                </th:block>
+            </li>
+
+            <li class="nav-item ">
+                <th:block th:if="${user != null && user.getRole().toString().equals('Admin')}">
+                    <a th:href="|/user|" class="nav-link navbar-brand" aria-current="page">Users</a>
+                </th:block>
+            </li>
+
+            <li class="nav-item ">
+                <th:block th:if="${user != null && user.getRole().toString().equals('Admin')}">
+                    <a th:href="|/send/admin/message|" class="nav-link navbar-brand" aria-current="page">Messages</a>
+                </th:block>
+            </li>
+
+            <li class="nav-item ">
+                <th:block th:if="${user != null && user.getRole().toString().equals('Admin')}">
+                    <a th:href="|/product/customer_order|" class="nav-link navbar-brand" aria-current="page">Orders</a>
+                </th:block>
+            </li>
+
+        </div>
+
+        <li class="nav-item active">
+            <th:block th:if="${user == null}">
+                <a class="nav-link navbar-brand" aria-current="page" href="/login">Login</a>
+                <a class="nav-link navbar-brand" aria-current="page" href="/login/register">Register</a>
+            </th:block>
+            <th:block th:if="${user != null}">
+                <a class="nav-link navbar-brand" aria-current="page" href="/login/logout"
+                   th:text="|Logout as ${user.userName}|">About us</a>
+            </th:block>
+            <th:block th:if="${user != null && user.getRole().toString().equals('Customer')}">
+                <button type="button" class="btn btn-primary" th:onclick="window.location.href = '/product/checkout'"
+                        th:text="|Checkout(${cartCount})|">Checkout
+                </button>
+            </th:block>
+        </li>
+
+    </ul>
+</div>
+<div class="container">
+    <nav aria-label="breadcrumb" style="margin-bottom: 40px;">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item" style="font-weight: 400; "><a th:href="@{/}">Home</a></li>
+            <li class="breadcrumb-item" style="font-weight: 400; "><a th:href="@{/product/page/1}">Products</a></li>
+            <li class="breadcrumb-item active" aria-current="page" style="font-weight: 600; color: #000">Product
+                Detail
+            </li>
+        </ol>
+</div>
+<div class="container-fluid mt-2 mb-3">
+    <div class="row no-gutters">
+        <div class="col-md-5 pr-2">
+            <div class="card">
+                <div class="demo">
+                    <ul id="lightSlider">
+                        <li th:data-thumb="@{'/photos/'+ ${product.image}}"><img
+                                th:src="@{'/photos/'+ ${product.image}}"/>
+                        </li>
+                        <li th:data-thumb="@{'/photos/'+ ${product.sub_image1}}"><img
+                                th:src="@{'/photos/'+ ${product.sub_image1}}"/>
+                        </li>
+                        <li th:data-thumb="@{'/photos/'+ ${product.sub_image2}}"><img
+                                th:src="@{'/photos/'+ ${product.sub_image2}}"/>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="card">
+                <div class="d-flex flex-row align-items-center">
+                    <div class="p-ratings"><i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
+                    <span class="ml-1">5.0</span>
+                </div>
+                <div class="about"><span class="font-weight-bold" th:text="${product.name}">IKEA x HAY Ypperlig Collection </span>
+                    <h4 class="font-weight-bold" th:text="${#numbers.formatInteger(product.price,3,'POINT')} + ' VND'">
+                        $3,444</h4>
+                </div>
+                <div class="buttons"><a class="btn btn-outline-warning btn-long cart"
+                                        th:href="|/product/buy/${product.getId()}|">Add to Cart</a>
+                    <div class="buttons"><a class="btn btn-outline-warning btn-long cart"
+                                            th:href="|/product/comment/${product.getId()}|">Comment</a>
+                        <hr>
+                        <div class="product-description">
+                            <div class="mt-2"><span class="font-weight-bold">Description</span>
+                                <p>Wine is an alcoholic drink typically made from fermented grapes. Yeast consumes the
+                                    sugar
+                                    in the grapes and converts it to ethanol and carbon dioxide, releasing heat in the
+                                    process. Different varieties of grapes and strains of yeasts are major factors in
+                                    different styles of wine.</p>
+                                <div class="bullets">
+                                    <div class="d-flex align-items-center"><span class="dot"></span>
+                                        <span class="bullet-text bullet-text-fix"
+                                              th:text="${'Description: ' + product.description}">Best in Quality</span>
+                                    </div>
+                                    <div class="d-flex align-items-center"><span class="dot"></span>
+                                        <span class="bullet-text bullet-text-fix"
+                                              th:text="${'Quantity: ' + product.quantity }">Anti-creak joinery</span>
+                                    </div>
+                                    <div class="d-flex align-items-center"><span class="dot"></span>
+                                        <span class="bullet-text bullet-text-fix"
+                                              th:text="${'Category: ' + product.category }">Anti-creak joinery</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mt-2"><span>Similar items:</span>
+                            <div class="similar-products mt-2 d-flex flex-row">
+                                <div class="card border p-1" style="width: 9rem;margin-right: 3px;"
+                                     th:each="similarProduct:${similarProducts}">
+                                    <a th:href="|/product/productdetail/${similarProduct.getId()}|"
+                                       style="margin: auto">
+                                        <div class="img-wrap" style="width: 100%;height: 140px">
+                                            <img
+                                                    th:src="@{'/photos/'+ ${similarProduct.image}}" class="card-img-top"
+                                                    alt="..." style="width: 100%;height: 100%;object-fit: cover">
+                                        </div>
+                                        <div class="card-body">
+                                            <h6 class="card-title"
+                                                th:text="${#numbers.formatInteger(similarProduct.price,3,'POINT')} + ' VND'">
+                                                $1,999</h6>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-2">
+                    <h6>Comments</h6>
+                    <!--                <div class="comment-section">-->
+                    <!--                    <form>-->
+                    <!--                    <div class="d-flex justify-content-between align-items-center">-->
+                    <!--                        <div class="d-flex flex-row align-items-center">-->
+                    <!--                            <div class="d-flex flex-column ml-1 comment-profile">-->
+                    <!--                                <span class="username">Lori Benneth</span>-->
+                    <!--                                <input class="comment-ratings">-->
+                    <!--                                <button class="btn btn-dark btn-lg btn-block" type="submit">comment!</button>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                    </form>-->
+
+                    <div class="d-flex justify-content-between align-items-center" th:each="comment:${comments}" style="margin: 4px; padding: 4px 0;border-bottom: 1px solid grey">
+                            <div class="d-flex flex-column ml-1 comment-profile"  >
+                                <span class="username" th:text="${comment.getUser().getUserName()}" >Lori Benneth</span>
+                                <div class="comment-ratings" th:text="${comment.userComment}">fsdfsdfsd</div>
+                            </div>
+                    </div>
+                    </div>
+                    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
+                    <script src='https://sachinchoolur.github.io/lightslider/dist/js/lightslider.js'></script>
+                    <script>
+                        $('#lightSlider').lightSlider({
+                            gallery: true,
+                            item: 1,
+                            loop: true,
+                            slideMargin: 0,
+                            thumbItem: 9
+                        });
+                    </script>
+</body>
+</html>

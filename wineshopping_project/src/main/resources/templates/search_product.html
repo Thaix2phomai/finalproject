@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- <head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--  <title>Employers</title>-->
+<!--</head>-->
+
+<head th:replace="template.html :: header('products')">
+</head>
+<body>
+<header th:insert="template.html :: topmenu"></header>
+<div class="container">
+
+
+    <nav aria-label="breadcrumb" style="margin-bottom: 40px;">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item" style="font-weight: 400; "><a th:href="@{/}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page" style="font-weight: 600; color: #000">Products</li>
+        </ol>
+    </nav>
+
+    <!--<nav th:replace="template :: nav(${cartCount})"></nav>-->
+
+
+
+    <div class="row">
+        <div class="col-lg-8 mt-5">
+            <form th:action="@{/product/search}" method="get" th:object="${searchRequest}">
+                <div class="form-group row mt-3">
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="name" autocomplete="off"
+                               placeholder="Key product name" name="name" th:value="*{name}"/>
+                    </div>
+                    <div class="col-sm-4">
+                        <select  name="category" th:field="*{category}">
+                            <option value="">-Chọn loại rượu  -</option>
+                            <option  th:each="state : ${T(vn.com.techmaster.wineshopping_project.model.Category).values()}" th:value="${state}"
+                                     th:text="${state.label}">
+                            </option>
+                        </select>
+                    </div>
+                    <div style="margin-left: -100px" class="col-sm-2">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row my-3" th:each="product:${products}">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="row card-body">
+                        <img style="width: 100%; height: 350px; object-fit:cover" class="product-image img-fluid col-sm-4" th:src="@{'/photos/'+ ${product.image}}" alt="product image"/>
+                        <div class="col-sm-6">
+                            <h3 class="card-title" th:text="${product.name}">Sony WXH-1000</h3>
+                            <p class="card-text" th:text="${'Miêu tả: ' + product.description}">Sony</p>
+                            <p class="card-text" th:text="${#numbers.formatInteger(product.price,3,'POINT')} + ' VND'">
+                                10000000</p>
+                            <p class="card-text" th:text="${'Số lượng: ' + product.quantity }">Sony</p>
+                            <p class="card-text" th:text="${product.category}">Sony</p>
+
+                            <th:block th:if="${user != null && user.getRole().toString().equals('Customer')}">
+                                <a class="btn btn-primary" th:href="|/product/buy/${product.getId()}|">Add to Cart</a>
+                            </th:block>
+
+                            <th:block th:if="${user != null && user.getRole().toString().equals('Admin')}">
+                                <a th:href="|/product/delete/${product.getId()}|" class="btn btn-danger float-end">Delete Product</a>
+                            </th:block>
+
+                            <th:block th:if="${user != null && user.getRole().toString().equals('Admin')}">
+                                <a th:href="|/product/edit/${product.getId()}|" class="btn btn-danger float-end">Edit Product</a>
+                            </th:block>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+</div>
+
+
+</body>
+</html>

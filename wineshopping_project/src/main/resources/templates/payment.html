@@ -1,0 +1,92 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Payment</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href='https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" th:href="@{/assets/css/payment.css}">
+
+</head>
+<body>
+<form
+        method="post"
+        action="#"
+        th:action="payment"
+        th:object="${pay}"
+>
+<div class="min-h-screen flex justify-center items-center" style="background-color: #9A616D">
+    <div class=" card rounded-lg h-auto w-3/4 bg-white">
+        <div class="flex h-full w-full ">
+
+            <div class="left_side truncate relative rounded-l-lg h-auto w-full truncate position-static">
+                <img class="h-full w-full" src="https://cdn.quotesgram.com/small/35/72/336019489-BarneyAwesome.jpg">
+                <div class="h-48 w-72 opacity-70 rounded-lg  absolute top-28 left-8 position-absolute" style="background-color: #9A616D;top:126px;left: 50%;transform: translateX(-50%)">
+                    <div class="p-2 mt-3 text-black font-semibold">
+                        <p class="text-white" >Card Number</p>
+                        <p class="border-b-2 text-white shown_number">0000 0000 0000 0000</p>
+                    </div>
+                    <div class="flex gap-3 mt-3">
+                        <div class="p-2 mt-2 text-black font-semibold">
+                            <p class="text-white" >Expiry Date</p>
+                            <p class="border-b-2 text-white shown_expiry">mm/yyyy</p>
+                        </div>
+                        <div class="p-2 mt-2 text-black font-semibold">
+                            <p class="text-white" >CVV</p>
+                            <p class="border-b-2 text-white shown_cvv">000</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="p-3 right_side truncate h-auto w-full bg-gray-300 rounded-r-lg">
+                <p class="mt-3 text-xl font-semibold">Payment Details</p>
+                <div class="mt-5 relative">
+                    <input th:field="*{cardNumber}" class="input_number h-12 w-full border border-white transition-all rounded-lg px-2 outline-none focus:border-blue-900" type="text" placeholder="0000 0000 0000 0000" data-slots="0" data-accept="\d" size="19" onkeyup="Number(this.value)">
+                    <div th:if="${#fields.hasErrors('cardNumber')}" th:errors="*{cardNumber}">
+                        Password Error
+                    </div>
+                    <label class="text-xs absolute -top-4 left-0">Card Number</label>
+                </div>
+                <div class="mt-7 w-full flex gap-3">
+                    <div class=" relative w-full">
+                        <input th:field="*{expiryDate}" class="input_expiry h-12 w-full border border-white transition-all rounded-lg px-2 outline-none focus:border-blue-900" placeholder="mm/yyyy" data-slots="my" type="text" onkeyup="Expiry(this.value)">
+                        <div th:if="${#fields.hasErrors('expiryDate')}" th:errors="*{expiryDate}">
+                            Password Error
+                        </div>
+                        <label class="text-xs absolute -top-4 left-0" >Expiry Date</label>
+                    </div>
+                    <div class=" relative w-full">
+                        <input th:field="*{cvv}" class="input_cvv h-12 w-full border border-white transition-all rounded-lg px-2 outline-none focus:border-blue-900" type="text"  placeholder="000" data-slots="0" data-accept="\d" size="3"  onkeyup="Cvv(this.value)">
+                        <div th:if="${#fields.hasErrors('cvv')}" th:errors="*{cvv}">
+                            Password Error
+                        </div>
+                        <label class="text-xs absolute -top-4 left-0">CVV</label>
+                    </div>
+                </div>
+                <div class="mt-7 relative">
+                    <input th:field="*{name}" class="h-12 w-full border border-white transition-all rounded-lg px-2 outline-none focus:border-blue-900" type="text">
+                    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+                        Password Error
+                    </div>
+                    <label class="text-xs absolute -top-4 left-0" onkeyup="Name(this.value)">Name on Card</label>
+                </div>
+                <p class="mt-4">Amount due : <a class="font-semibold" href="#" th:text="${#numbers.formatInteger(cart.total, 3, 'POINT')} + ' VND'" ><i class="fa fa-rupee"></i> 12,500.00</a></p>
+                <div class="mb-5"> <button type="submit" class="pay_now mt-4 outline-none rounded-lg text-white h-12 w-full bg-pink-500 text-sm cursor-pointer transition-all hover:bg-pink-800"><i class="fa fa-lock mr-1 "></i>Pay Now</button> </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<script src="assets/js/payment.js"></script>
+</body>
+</html>

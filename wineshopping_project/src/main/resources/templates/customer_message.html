@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employers</title>
+</head> -->
+
+<head th:replace="template.html :: header('customer')">
+</head>
+
+<body>
+
+<header th:insert="template.html :: topmenu"></header>
+
+<div class="container">
+
+    <nav aria-label="breadcrumb" style="margin-bottom: 40px;">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item" style="font-weight: 400; "><a th:href="@{/}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page" style="font-weight: 600; color: #000">Messages</li>
+        </ol>
+    </nav>
+
+    <div class="alert alert-primary " id="message" role="alert" th:text="${replySuccess}" th:if="${replySuccess}"></div>
+
+
+    <table class="table table-striped table-bordered">
+        <thead class="table-light">
+        <tr>
+            <th scope="col">No.</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Subject</th>
+            <th scope="col">Message</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="message, iStat:${messages}">
+            <th scope="row" th:text="${iStat.index} +1"></th>
+            <td th:text="${message.fullname}"></td>
+            <td><a th:href="|/send/admin/reply/${message.id}|" th:text="${message.email}" target="_blank"></a></td>
+            <td th:text="${message.subject}"></td>
+            <td th:text="${message.message}"></td>
+
+            <!--            <td><img th:src="|/logo/${employer.logo_path}|" width="50px"/></td>-->
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script th:inline="javascript">
+    let messege = document.getElementById("message")
+    setTimeout(function () {
+        messege.parentElement.removeChild(messege)
+    }, 1500)
+</script>
+
+</body>
+
+</html>

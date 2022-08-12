@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <!-- Styles Global -->
+    <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+    <!-- Bootstrap core css -->
+    <link
+            rel="stylesheet"
+            type="text/css"
+            href="plugins/bootstrap-5.2.0-beta1-dist/css/bootstrap.min.css">
+    <!-- FontAws -->
+    <link rel="stylesheet" href="plugins/fontawesome-free-6.1.1-web/css/all.css">
+    <!-- Font-AWS -->
+    <link
+            rel="stylesheet"
+            href="plugins/fontawesome-free-6.1.1-web/css/all.min.css"
+    />
+    <!-- OWL-Core-CSS -->
+    <link
+            rel="stylesheet"
+            href="plugins/owlcarousel/assets/owl.carousel.min.css"
+    />
+    <link
+            rel="stylesheet"
+            href="plugins/owlcarousel/assets/owl.theme.default.min.css"
+    />
+    <!-- JQUERY-3.6.0 -->
+    <script src="plugins/jquery-3.6.0.min.js"></script>
+</head>
+<body style="background-color: black">
+
+
+<!-- Top-bar -->
+<div class="top-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-6">
+                <ul class="wrap-topbar-left">
+                    <li class="phone">0394106474</li>
+                    <li class="email">thaithedoublecheese1@gmail.com</li>
+                </ul>
+            </div>
+            <div class="col-12 col-sm-6 col-md-6">
+                <div class="wrap-topbar-right">
+                    <div class="social">
+                        <ul class="ul-social">
+                            <li>
+                                <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="16"
+                                        height="16"
+                                        fill="currentColor"
+                                        class="bi bi-facebook"
+                                        viewbox="0 0 16 16">
+                                    <path
+                                            d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+                                </svg>
+                            </li>
+                            <li>
+                                <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="16"
+                                        height="16"
+                                        fill="currentColor"
+                                        class="bi bi-facebook"
+                                        viewbox="0 0 16 16">
+                                    <path
+                                            d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+                                </svg>
+                            </li>
+                            <li>
+                                <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="16"
+                                        height="16"
+                                        fill="currentColor"
+                                        class="bi bi-facebook"
+                                        viewbox="0 0 16 16">
+                                    <path
+                                            d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+                                </svg>
+                            </li>
+                            <li>
+                                <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="16"
+                                        height="16"
+                                        fill="currentColor"
+                                        class="bi bi-facebook"
+                                        viewbox="0 0 16 16">
+                                    <path
+                                            d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+                                </svg>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="control-admin">
+                        <ul class="sing-up">
+                            <th:block th:if="${user == null}">
+                                <li><a th:href="|/login|" class="nav-link navbar-brand" aria-current="page">Login</a>
+                                </li>
+                                <li><a th:href="|/login/register|" class="nav-link navbar-brand" aria-current="page">Sign
+                                    up</a></li>
+                            </th:block>
+                            <th:block th:if="${user != null}">
+                                <li>
+                                    <a th:href="|/login/logout|" class="nav-link navbar-brand" aria-current="page"
+                                       th:text="|Logout as ${user.userName}|"> Log Out as </a>
+                                </li>
+                            </th:block>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Header-Main -->
+<div class="header-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-4 col-md-4">
+                <a href="#" class="link-logo">
+                    Alcoholic's
+                    <span>store</span>
+                </a>
+            </div>
+            <div class="col-12 col-sm-8 col-md-8">
+                <ul class="nav nav-header-main collapse" id="menu-main">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item parent-menu">
+                        <a class="nav-link" href="#">
+                            Products
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a style="text-decoration: none; color: black" href="/product/search?name=&category=Wine"> Wine </a>
+                            </li>
+                            <li>
+                                <a style="text-decoration: none; color: black" href="/product/search?name=&category=Whyskey"> Whyskey </a>
+                            </li>
+                            <li>
+                                <a style="text-decoration: none; color: black" href="/product/search?name=&category=Tequila"> Tequilla</a>
+                            </li>
+                            <li>
+                                <a style="text-decoration: none; color: black" href="/product/search?name=&category=Beer"> Beer </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <th:block th:if="${user != null && user.getRole().toString().equals('Customer')}">
+                            <a class="nav-link" href="/send/customer/contact">Contact</a>
+                        </th:block>
+                        <th:block th:if="${user == null}">
+                            <a class="nav-link" href="/login">Contact</a>
+                        </th:block>
+                    </li>
+                    <li class="nav-item">
+                        <th:block th:if="${user != null }">
+                        <a class="nav-link" href="/product/checkout">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span class="count-cart" th:text="${cartCount}">3</span>
+                        </a>
+                        </th:block>
+                        <th:block th:if="${user == null }">
+                            <a class="nav-link" href="/login">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                <span class="count-cart" >0</span>
+                            </a>
+                        </th:block>
+                    </li>
+                </ul>
+
+                <div id="main">
+                    <button class="openbtn" onclick="openNav()">☰</button>
+                </div>
+
+                <div id="mySidebar" class="sidebar">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <a href="#">About</a>
+                    <a href="#">Services</a>
+                    <a href="#">Clients</a>
+                    <a href="#">Contact</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Banner-Main -->
+<div class="banner-main">
+    <div class="content-banner">
+        <div class="wrap-content">
+            <h1 class="title-banner">Good
+                <span>Drink</span>
+                for Good
+                <span>Moments</span>.</h1>
+            <div class="btn-baner">
+                <button type="button" class="btn btn-danger">
+                    Dark
+                </button>
+                <button type="button" class="btn btn-success">
+                    Light
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Introduct-Main -->
+<div class="introduct-main">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-6">
+                <div class="introduct-main-left">
+                    <img class="introduct-img"
+                         src="https://scontent.fhan2-4.fna.fbcdn.net/v/t1.15752-9/290030895_489989539555550_2551211324959100148_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=ae9488&_nc_ohc=T11zl2v3w4sAX9cwKW9&_nc_oc=AQmRPrdk3zMKfbn2xiH2QT73i1lNv151IejP4rwD03o4Di_sWOrgh5fQQJVxkUtibEPc7uEJaNa7A-ncBElEDlLl&_nc_ht=scontent.fhan2-4.fna&oh=03_AVK1frAFMo46VprAnitIIS8pgY-jegmf42U5Vi-qvAD5pg&oe=6317BC38">
+                    <div class="middle">
+                        <div class="text"> Thái</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-6">
+                <div class="introduct-main-right">
+                    <img class="introduct-img"
+                         src="https://scontent.fhan2-1.fna.fbcdn.net/v/t1.15752-9/290292157_1977705725764840_4039371020403254938_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=ae9488&_nc_ohc=577oliazdp4AX_6pm9T&_nc_ht=scontent.fhan2-1.fna&oh=03_AVKX-OYx5j32aldLVOiKqJaK3iOmp-W-q5EXM2hx1P3m7A&oe=63162D61">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-sm-2 col-md-2">
+                <div class="wrap-introduct">
+                    <div class="img-introduct">
+                        <img class="pictures"
+                             src="https://image.shutterstock.com/image-photo/whyskey-glass-ice-cube-260nw-275460677.jpg">
+                    </div>
+                    <h3>Whyskey</h3>
+                </div>
+            </div>
+            <div class="col-12 col-sm-2 col-md-2">
+                <div class="wrap-introduct">
+                    <div class="img-introduct">
+                        <img class="pictures"
+                             src="https://cf.ltkcdn.net/wine/images/std-xs/306865-340x227-whats-in-wine.jpg">
+
+                    </div>
+                    <h3>Wine</h3>
+                </div>
+            </div>
+            <div class="col-12 col-sm-2 col-md-2">
+                <div class="wrap-introduct">
+                    <div class="img-introduct">
+                        <img class="pictures"
+                             src="https://cdnimg.vietnamplus.vn/uploaded/ivpycivo/2022_02_24/tumblr_inline_pkkcqclxod1v9v5p6_640.jpg">
+
+                    </div>
+                    <h3>Tequilla</h3>
+                </div>
+            </div>
+            <div class="col-12 col-sm-2 col-md-2">
+                <div class="wrap-introduct">
+                    <div class="img-introduct">
+                        <img class="pictures"
+                             src="https://s.yimg.com/uu/api/res/1.2/asR2yL65Q3ri0gvwN7o4JQ--~B/aD03Njk7dz0xMDI0O2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/the_independent_838/54ec2d0b117195cc23b36a2f4625d972">
+
+                    </div>
+                    <h3>Beer</h3>
+                </div>
+            </div>
+            <div class="col-12 col-sm-2 col-md-2">
+                <div class="wrap-introduct">
+                    <div class="img-introduct">
+                        <img class="pictures" src="https://rockit.vn/wp-content/uploads/2019/10/xi-ga-cuba-9.jpg">
+
+                    </div>
+                    <h3>Cigar</h3>
+                </div>
+            </div>
+            <div class="col-12 col-sm-2 col-md-2">
+                <div class="wrap-introduct">
+                    <div class="img-introduct">
+                        <img class="pictures"
+                             src="https://www.gentlemenranters.com/wp-content/uploads/2020/12/Alcohol-with-smoke-from-cigarette-768x614.jpg">
+
+                    </div>
+                    <h3>Others</h3>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Listing product -->
+<div class="container" style="background-color: black">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12">
+            <div class="wrap-title">
+                <p class="sub-title" style="padding-top: 30px">Our Delightful offerings</p>
+                <h2 class="title-listing">Tastefully Yours</h2>
+            </div>
+        </div>
+        <div class="col-12 col-sm-3 col-md-3 " th:each="product:${products}">
+            <div class="item-product">
+                <div class=" card-body item-img">
+                    <img class="img-fluid img-custom" th:src="@{'/photos/'+ ${product.image}}" alt="product image"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12">
+            <div class="wrap-btn">
+                <button class="btn-showmore"><a th:href="|/product/page/1|" class="nav-link navbar-brand"
+                                                aria-current="page"> View All Products</a>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Reviews-Customer -->
+<div class="reviews-customer">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12">
+                <div class="wrap-title">
+                    <p class="sub-title">Best offerings</p>
+                    <h2 class="title-reviews"> Macallan Special Edition</h2>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12">
+                <!-- Set up your HTML -->
+                <div class="owl-carousel owl-theme">
+                    <div class="item">
+                        <img class="slider-item-img"
+                             src="https://www.themacallan.com/sites/g/files/jrulke166/files/styles/image_card/public/MAC_2020_Rare_Cask_700ml_Bottle_%26_Pack_No_Reflection_1024x1024_PNG.png"
+                             alt="">
+                    </div>
+                    <div class="item">
+                        <img class="slider-item-img"
+                             src="https://www.themacallan.com/sites/g/files/jrulke166/files/styles/image_card/public/MAC_2020_Rare_Cask_700ml_Bottle_%26_Pack_No_Reflection_1024x1024_PNG.png"
+                             alt="">
+                    </div>
+                    <div class="item">
+                        <img class="slider-item-img"
+                             src="https://www.themacallan.com/sites/g/files/jrulke166/files/styles/image_card/public/MAC_2020_Rare_Cask_700ml_Bottle_%26_Pack_No_Reflection_1024x1024_PNG.png"
+                             alt="">
+                    </div>
+                    <div class="item">
+                        <img class="slider-item-img"
+                             src="https://www.themacallan.com/sites/g/files/jrulke166/files/styles/image_card/public/MAC_2020_Rare_Cask_700ml_Bottle_%26_Pack_No_Reflection_1024x1024_PNG.png"
+                             alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="map">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.2397383752714!2d105.85709055064011!3d21.023091385932773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135abeea5265939%3A0xf9caa4de7f8847f7!2zMUEgUC4gxJDhurduZyBUaMOhaSBUaMOibiwgUGhhbiBDaHUgVHJpbmgsIEhvw6BuIEtp4bq_bSwgSMOgIE7hu5lpLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1657081901459!5m2!1svi!2s"
+            width="1895" height="350" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+
+
+<script type="text/javascript">
+    let key = "first-access";
+    let isConfirm = sessionStorage.getItem(key)
+        ? Number(sessionStorage.getItem(key))
+        : 0;
+    if (!isConfirm) {
+        if (confirm('Trang web dành cho cánh đàn ông đích thực, bạn có ok về độ tuổi của mình ?!')) {
+            window.location.href
+            sessionStorage.setItem(key, 1)
+        } else {
+            window.location.assign("https://www.google.com.vn/?hl=vi")
+        }
+    }
+
+</script>
+<!-- Bootstrap core JS -->
+<script
+        type="text/javascript"
+        src="plugins/bootstrap-5.2.0-beta1-dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/custome-menu.js">
+
+</script>
+
+<!-- OWL-CORE-SCRIPT -->
+<script src="plugins/owlcarousel/owl.carousel.min.js"></script>
+<script src="assets/js/owl-custom.js"></script>
+</body>
+</html>
